@@ -1,0 +1,24 @@
+[
+    {
+      "id": "1",
+      "name": "Stage 1",
+      "children": [],
+      "type" : "folder"
+    },
+    {
+      "id": "2",
+      "name": "Stage 2",
+      "children": [
+        {
+          "id": "2.1",
+          "name": "2.1 Stage",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Stage 3",
+      "children": []
+    }
+  ]
