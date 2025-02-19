@@ -8,6 +8,7 @@ import emailIcon from '../assets/envelope_email.svg';
 import reportIcon from '../assets/file_Reports.svg';
 import managementIcon from '../assets/sliders_management_panel.svg';
 import calendarIcon from '../assets/calender-days-2.svg';
+import UserIcon from '../assets/user-circle.svg';
 
 
 
@@ -73,7 +74,23 @@ const Sidebar = () => {
              
             </ListItemIcon>
           </ListItem>
+       
+          
         ))}
+
+       <ListItem button key =
+              'm7' style = {{justifyContent:'center'}}>
+            <ListItemIcon style={{ color: 'white', minWidth: '50px' }}>
+                <div style={{ textAlign: 'center' }}> 
+                  <img src={UserIcon} alt="UserIcon" style={{width: '50px',height: '50px', color: 'white', filter: 'invert(1)', marginTop: '93px'}} />
+                   <div style={{fontSize: '19px', marginTop: '5px', whiteSpace: 'auto' }}>
+                   </div>
+                </div>
+              
+            </ListItemIcon>
+            
+          </ListItem>
+
       </List>
     </div>
    

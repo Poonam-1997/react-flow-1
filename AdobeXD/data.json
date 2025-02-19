@@ -1,24 +1,19 @@
-[
-    {
-      "id": "1",
-      "name": "Stage 1",
-      "children": [],
-      "type" : "folder"
-    },
-    {
-      "id": "2",
-      "name": "Stage 2",
+
+
+  [
+    { "id": "1", "name": "Stage 1", "type": "folder", "allowAdd" : "true", "rootfolder":"true", "children": [] },
+    { 
+      "id": "2", "name": "Stage 2",  "type":"folder", "allowAdd" : "true", "rootfolder":"true",
       "children": [
-        {
-          "id": "2.1",
-          "name": "2.1 Stage",
-          "children": []
-        }
+        { "id": "2.1", "name": "2.1 Stage", "type":"folder", "children": [] },
+        { "id": "2.2", "name": "2.2 Stage", "allowAdd" : "true" }
       ]
     },
-    {
-      "id": "3",
-      "name": "Stage 3",
-      "children": []
-    }
-  ]
+    { "id": "3", "name": "Stage 3", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "4", "name": "Stage 4", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "5", "name": "Stage 5", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "6", "name": "Stage 6", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "7", "name": "Stage 7", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "8", "name": "Stage 8", "type":"folder", "rootfolder":"true", "children": [] },
+    { "id": "9", "name": "Stage 9", "type":"folder", "rootfolder":"true", "children": [] }
+]

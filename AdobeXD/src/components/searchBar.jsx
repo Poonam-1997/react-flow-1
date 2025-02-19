@@ -19,6 +19,8 @@ import { useState } from "react";
 export default function searchBar() {
     const [searchText, setSearchText] = useState("");
     const [isMicActive, setIsMicActive] = useState(false);
+    const [placeholder, setPlaceholder] = useState("Search within all folders and content...");
+
 
     return (
         <>
@@ -58,7 +60,9 @@ export default function searchBar() {
                 {/* Search Input */}
                 <TextField
                     variant="standard"
-                    placeholder="Search within all folders and content..."
+                    // placeholder="Search within all folders and content..."
+                    placeholder = {placeholder}
+                    onFocus={() => setPlaceholder("")}
                     size="small"
                     fullWidth
                     value={searchText}

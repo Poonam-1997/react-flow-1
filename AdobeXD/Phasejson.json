@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "phaseNumber": "1",
+    "phase": "İŞLEM DOSYALARI / TRANSACTION...",
+    "status": "Continuing",
+    "document": "V6",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  },
+  {
+    "id": 2,
+    "phaseNumber": "2",
+    "phase": "Aşama / Phase",
+    "status": "Completed",
+    "document": "-",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": [
+      {
+        "id": 2.1,
+        "phaseNumber": "2.1",
+        "phase": "Aşama / Phase",
+        "status": "Completed",
+        "document": "-",
+        "responsibleParty": "Goksu Safi Işık Avukatlık",
+        "subPhases": []
+      },
+      {
+        "id": 2.2,
+        "phaseNumber": "2.2",
+        "phase": "Aşama / Phase",
+        "status": "Completed",
+        "document": "V1.2",
+        "responsibleParty": "Goksu Safi Işık Avukatlık"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "phaseNumber": "3",
+    "phase": "Aşama / Phase",
+    "status": "Not Started",
+    "document": "V6",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  },
+  {
+    "id": 4,
+    "phaseNumber": "4",
+    "phase": "Aşama / Phase",
+    "status": "Not Started",
+    "document": "-",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  },
+  {
+    "id": 5,
+    "phaseNumber": "5",
+    "phase": "Aşama / Phase",
+    "status": "Not Started",
+    "document": "-",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  },
+  {
+    "id": 6,
+    "phaseNumber": "6",
+    "phase": "Aşama / Phase",
+    "status": "Continuing",
+    "document": "V1",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  },
+  {
+    "id": 7,
+    "phaseNumber": "7",
+    "phase": "Aşama / Phase",
+    "status": "Not Started",
+    "document": "-",
+    "responsibleParty": "Goksu Safi Işık Avukatlık",
+    "updateDate": "11.12.2022",
+    "subPhases": []
+  }
+]

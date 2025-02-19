@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./searchBar.jsx";
 import {
   Box,
@@ -10,7 +10,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Typography,
   Collapse,
   List,
   ListItem,
@@ -18,12 +17,7 @@ import {
   Divider,
 } from "@mui/material";
 
-import {
-  Search,
-  CloudDownload,
-  KeyboardArrowDown,
-  KeyboardArrowUp,
-} from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import homeIcon from "../assets/house.svg";
 import contentsIcon from "../assets/align-right_content.svg";
 import tasksIcon from "../assets/clipboard-check-list_task.svg";
@@ -34,6 +28,11 @@ import analysisIcon from "../assets/analysis.svg";
 import calendarIcon from "../assets/calender-days-2.svg";
 import reportLogIcon from "../assets/reports_log.svg";
 import dotsIcon from "../assets/ellipsis_dots.svg";
+import wordIcon from "../assets/Group 193548word.svg";
+import drop from "../assets/caret-down.svg";
+
+// Import phase data
+import phasejson from "../../Phasejson.json";
 
 const menuItems = [
   { text: "Transaction", icon: homeIcon },
@@ -49,36 +48,6 @@ const menuItems = [
 const SeparateItems = [
   { text: "Activity Logs", icon: reportLogIcon },
   { text: undefined, icon: dotsIcon },
-];
-
-const data = [
-  {
-    id: 1,
-    phase: "Transaction...",
-    status: "Continuing",
-    document: "V6",
-    responsibleParty: "Goksu Safi Işık Avukatlık",
-    updateDate: "11.12.2022",
-    subPhases: 4,
-  },
-  {
-    id: 2,
-    phase: "Phase 2",
-    status: "Completed",
-    document: "-",
-    responsibleParty: "Goksu Safi Işık Avukatlık",
-    updateDate: "11.12.2022",
-    subPhases: 2,
-  },
-  {
-    id: 3,
-    phase: "Phase 3",
-    status: "Not Started",
-    document: "V6",
-    responsibleParty: "Goksu Safi Işık Avukatlık",
-    updateDate: "11.12.2022",
-    subPhases: 5,
-  },
 ];
 
 const StatusBadge = ({ status }) => {
@@ -106,25 +75,39 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-const TransactionRow = ({ row }) => {
-  const [open, setOpen] = React.useState(false);
+const TransactionRow = ({ row, level = "" }) => {
+  const [open, setOpen] = useState(false);
+  const phaseNumber = level ? `${level}.${row.id}` : row.id;
 
   return (
     <>
       <TableRow>
         <TableCell>
-          <IconButton size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-          </IconButton>
+
+          {row.subPhases && row.subPhases.length >= 0 && (
+            <IconButton size="small" onClick={() => setOpen(!open)}>
+              <img
+                src={drop}
+                alt="drop"
+                style={{
+                  width: 14,
+                  height: 14,
+                  transform: open ? "rotate(0deg)" : "rotate(270deg)",
+                  marginLeft: 5
+                }}
+              />
+            </IconButton>
+          )}
         </TableCell>
+        <TableCell>{phaseNumber}</TableCell> {/* Display Phase Number */}
         <TableCell>{row.phase}</TableCell>
         <TableCell>
           <StatusBadge status={row.status} />
         </TableCell>
         <TableCell>
-          {row.document === "V6" ? (
+          {row.document && row.document !== "-" ? (
             <img
-              src={analysisIcon}
+              src={wordIcon}
               alt="Document Icon"
               style={{ width: 24, height: 24 }}
             />
@@ -132,23 +115,38 @@ const TransactionRow = ({ row }) => {
             "-"
           )}
         </TableCell>
-        <TableCell>{row.responsibleParty}</TableCell>
+        <TableCell>{row.responsibleParty || "-"}</TableCell>
         <TableCell>{row.updateDate}</TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="body2">
-                Sub Phases: {row.subPhases}
-              </Typography>
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow>
+
+      {
+        row.subPhases && row.subPhases.length > 0 && (
+          <TableRow sx={{
+            paddingBottom: "10px",
+          }} >
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0}} colSpan={6}>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+              <TableContainer
+              component={Paper} sx={{
+                marginTop: 2, borderCollapse: "separate",
+                borderSpacing: "0px 10px"
+              }}>
+              <Table>
+                <TableBody>
+                  {row.subPhases.map((subRow) => (
+                    <TransactionRow key={subRow.id} row={subRow} />
+                  ))}
+                  </TableBody>
+              </Table>
+              </TableContainer>
+              </Collapse>
+            </TableCell>
+          </TableRow>
+        )}
     </>
   );
 };
+
 
 const Sidebar = () => (
   <Box
@@ -157,7 +155,8 @@ const Sidebar = () => (
       flexShrink: 0,
       backgroundColor: "white",
       borderRadius: "3%",
-      height: "50rem",
+      height: "51rem",
+      margin: "15px"
     }}
   >
     <List>
@@ -193,37 +192,14 @@ const Sidebar = () => (
         </ListItem>
       ))}
 
-      <Divider
-        orientation="horizontal"
-        variant="middle"
-        style={{ marginLeft: 0, width: "5rem" }}
-      />
+      <Divider orientation="horizontal" variant="middle" style={{ width: "5rem" }} />
       {SeparateItems.map((item, index) => (
-        <ListItem
-          key={index}
-          style={{
-            justifyContent: "center",
-            paddingTop: "1.5rem",
-            alignItems: "center",
-          }}
-          button
-        >
+        <ListItem key={index} style={{ justifyContent: "center", paddingTop: "1.5rem" }} button>
           <ListItemIcon style={{ minWidth: item.text ? "40px" : "18px" }}>
             <div style={{ textAlign: "center" }}>
-              <img
-                src={item.icon}
-                alt={item.text}
-                style={{ width: 21, height: 21 }}
-              />
+              <img src={item.icon} alt={item.text} style={{ width: 21, height: 21 }} />
               {item.text && (
-                <div
-                  style={{
-                    fontSize: "13px",
-                    padding: "0.3rem 0",
-                    fontWeight: "bold",
-                    color: "black",
-                  }}
-                >
+                <div style={{ fontSize: "13px", padding: "0.3rem 0", fontWeight: "bold", color: "black" }}>
                   {item.text}
                 </div>
               )}
@@ -236,23 +212,22 @@ const Sidebar = () => (
 );
 
 const Phase = ({ isSidebarOpen }) => {
-  
   return (
     <Box>
       <Box sx={{ display: "flex" }}>
-        <Box
-          sx={{
-            flex: 1,
-            marginLeft:isSidebarOpen? "23%": "160px",
-            
-          }}
-        >
-          <SearchBar />
 
-          <TableContainer component={Paper}>
+        <Box sx={{ flex: 1, marginLeft: isSidebarOpen ? "23%" : "160px" }}>
+          <SearchBar />
+          <TableContainer component={Paper} sx={{
+            marginTop: 2, borderCollapse: "separate",
+            borderSpacing: "0px 10px"
+          }}>
             <Table>
+
+
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ backgroundColor: "#F2F6FA", }}>
+                  <TableCell></TableCell>
                   <TableCell>#</TableCell>
                   <TableCell>Phase</TableCell>
                   <TableCell>Status</TableCell>
@@ -261,18 +236,16 @@ const Phase = ({ isSidebarOpen }) => {
                   <TableCell>Update Date</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
-                {data.map((row) => (
+                {phasejson.map((row) => (
                   <TransactionRow key={row.id} row={row} />
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </Box>
-
-        <Box sx={{ width: "5rem", margin: "20px", borderRadius: "2px" }}>
-          <Sidebar />
-        </Box>
+        <Sidebar />
       </Box>
     </Box>
   );
